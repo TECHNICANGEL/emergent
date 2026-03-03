@@ -65,9 +65,7 @@ class ModelWrapper:
         output = self.llm(
             prompt,
             max_tokens=max_tokens,
-            stop=stop or self.config.get("stop", ["
-
-"]),
+            stop=stop or self.config.get("stop", ["\n\n"]),
             temperature=self.temperature,
             top_p=self.config.get("top_p", 0.95),
             top_k=self.config.get("top_k", 40),
