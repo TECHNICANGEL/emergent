@@ -1,0 +1,6 @@
+[lint]
+# Ignore import-related linting for now
+ignore = [
+    "E402",  # Module level import not at top of file (needed for DLL setup)
+    "F401",  # Imported but unused (will be used later)
+]

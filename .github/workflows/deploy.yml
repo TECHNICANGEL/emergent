@@ -44,6 +44,6 @@ jobs:
       - name: Notify deployment complete
         shell: powershell
         run: |
-          Write-Host "✓ Deployment completed successfully"
+          Write-Host "[OK] Deployment completed successfully"
           Write-Host "  Commit: ${{ github.sha }}"
           Write-Host "  Branch: ${{ github.ref_name }}"
