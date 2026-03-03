@@ -1,0 +1,6 @@
+memory:
+  decay_rate: 0.1
+  retrieval_limit: 10
+  significance_threshold: 0.5
+  db_path: "data/chroma_db"
+  sqlite_path: "data/emergent.db"

@@ -1,0 +1,8 @@
+llama-cpp-python
+chromadb
+python-telegram-bot
+python-dotenv
+pyyaml
+numpy
+scipy
+sentence-transformers

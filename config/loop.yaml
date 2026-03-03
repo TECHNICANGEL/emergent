@@ -1,0 +1,4 @@
+loop:
+  min_interval_seconds: 60
+  max_interval_seconds: 300
+  thought_limit_tokens: 256
