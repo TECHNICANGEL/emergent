@@ -1,0 +1,49 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python environment
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "venv")) {
+            python -m venv venv
+          }
+          .\venv\Scripts\Activate.ps1
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate configuration
+        shell: pwsh
+        run: |
+          .\venv\Scripts\Activate.ps1
+          python -c "import yaml; yaml.safe_load(open('config/model.yaml'))"
+          python -c "import yaml; yaml.safe_load(open('config/memory.yaml'))"
+          python -c "import yaml; yaml.safe_load(open('config/loop.yaml'))"
+          Write-Host "Configuration files validated successfully"
+
+      - name: Run deployment script
+        shell: pwsh
+        run: |
+          if (Test-Path "scripts/deploy.ps1") {
+            .\scripts\deploy.ps1
+          } else {
+            Write-Host "No deployment script found, skipping custom deployment"
+          }
+
+      - name: Notify deployment complete
+        shell: pwsh
+        run: |
+          Write-Host "✓ Deployment completed successfully"
+          Write-Host "  Commit: ${{ github.sha }}"
+          Write-Host "  Branch: ${{ github.ref_name }}"
